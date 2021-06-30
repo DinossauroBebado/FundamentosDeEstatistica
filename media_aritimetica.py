@@ -1,12 +1,18 @@
-numbers = []
-harmonica = []
-somah = 0
-soma = 0
-cont = 0
-mult = 1
-numeros = []
 
 POS = 87
+
+
+def parse(numbers):
+    numeros = []
+    for number in numbers:
+        try:
+            numero = float(number.replace(",", "."))
+        except ValueError:
+            print("ERROR valor digitado não é um número")
+            quit()
+        numeros.append(numero)
+
+    return numeros
 
 
 def variancia(numeros, media):
@@ -32,37 +38,53 @@ def percentil(numeros, pos):
     return perc
 
 
-def media_harmonica(somaInversa, cont):
-    return cont*(somaInversa**-1)
+def media_harmonica(numeros):
+    soma = 0
+    for numero in numeros:
+        if(numero != 0):
+            soma = soma + 1/numero
+
+    return len(numeros)*(soma**-1)
 
 
-def media_geometrica(mult, cont):
-    return (mult**(1/cont)-1)*100
+def media_geometrica(numeros):
+    mult = 1
+    for numero in numeros:
+        mult = (mult*(numero/100 + 1))
+
+    return (mult**(1/len(numeros))-1)*100
+
+
+def media_aritimetrica(numeros):
+
+    return sum(numeros)/len(numeros)
 
 
 with open('sum.txt', 'r') as inp:
+    numbers = []
     for line in inp:
         x = line.split()
         numbers = numbers + x
 
-for number in numbers:
-    soma = soma + float(number.replace(",", "."))
-    if(float(number.replace(",", ".")) != 0):
-        somah = somah + 1/float(number.replace(",", "."))
-    numeros.append(float(number.replace(",", ".")))
-    mult = mult*((float(number.replace(",", ".")))/100 + 1)
-    cont += 1
 
-
-print("soma: " + str(soma))
-print("n: " + str(cont))
-print("media arimetica: " + str(soma/cont))
-print("media Harmonica " + str(media_harmonica(somah, cont)))
-print("media geometrica: " + str(media_geometrica(mult, cont)))
+numeros = parse(numbers)
+print("--------------------------------------")
+print("soma: " + str(sum(numeros)))
+print("--------------------------------------")
+print("n: " + str(len(numeros)))
+print("--------------------------------------")
+print("media aritimetrica: " + str(media_aritimetrica(numeros)))
+print("--------------------------------------")
+print("media Harmonica " + str(media_harmonica(numeros)))
+print("--------------------------------------")
+print("media geometrica: " + str(media_geometrica(numeros)))
+print("--------------------------------------")
 
 # para calcular moderadas porcentils e tals
+
 print(sorted(numeros))
-
-print(f'Percentil da {POS} : {str(percentil(numeros,POS))}')
-
-print("desviopadrao: " + str(desvio_padrao(numeros, soma/cont)))
+print("--------------------------------------")
+print(f'Percentil de {POS} : {str(percentil(numeros,POS))}')
+print("--------------------------------------")
+print("desviopadrao: " + str(desvio_padrao(numeros, media_aritimetrica(numeros))))
+print("--------------------------------------")
