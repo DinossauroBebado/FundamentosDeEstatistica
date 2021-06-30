@@ -68,23 +68,14 @@ with open('sum.txt', 'r') as inp:
 
 
 numeros = parse(numbers)
-print("--------------------------------------")
-print("soma: " + str(sum(numeros)))
-print("--------------------------------------")
-print("n: " + str(len(numeros)))
-print("--------------------------------------")
-print("media aritimetrica: " + str(media_aritimetrica(numeros)))
-print("--------------------------------------")
-print("media Harmonica " + str(media_harmonica(numeros)))
-print("--------------------------------------")
-print("media geometrica: " + str(media_geometrica(numeros)))
-print("--------------------------------------")
 
-# para calcular moderadas porcentils e tals
+medias = {"soma ": sum(numeros), "n ": len(numeros), "media aritimetrica ": media_aritimetrica(numeros),
+          "media Harmonica ": media_harmonica(numeros), "media geometrica": media_geometrica(numeros), f'Percentil de {POS} ': percentil(numeros, POS),
+          "desviopadrao:": desvio_padrao(numeros, media_aritimetrica(numeros))}
+
+print("----------------------------")
+for media in medias:
+    print(media+str(medias[media]))
+    print("----------------------------")
 
 print(sorted(numeros))
-print("--------------------------------------")
-print(f'Percentil de {POS} : {str(percentil(numeros,POS))}')
-print("--------------------------------------")
-print("desviopadrao: " + str(desvio_padrao(numeros, media_aritimetrica(numeros))))
-print("--------------------------------------")
