@@ -6,6 +6,8 @@ cont = 0
 mult = 1
 numeros = []
 
+POS = 87
+
 
 def variancia(numeros, media):
     sum = 0
@@ -20,10 +22,14 @@ def desvio_padrao(numeros, media):
 
 
 def percentil(numeros, pos):
+    numeros = sorted(numeros)
     q = (pos/100)*(len(numeros)+1)
     alfa = int(str(q)[0:str(q).index(".")])
-    beta = float(str(q)[str(q).index(".")+1:])/10
-    return q
+    beta = q - alfa
+    print(f'alfa:{alfa}  beta: {beta}')
+    perc = numeros[alfa-1] + beta*(numeros[alfa]-numeros[alfa-1])
+
+    return perc
 
 
 def media_harmonica(somaInversa, cont):
@@ -56,5 +62,7 @@ print("media geometrica: " + str(media_geometrica(mult, cont)))
 
 # para calcular moderadas porcentils e tals
 print(sorted(numeros))
+
+print(f'Percentil da {POS} : {str(percentil(numeros,POS))}')
 
 print("desviopadrao: " + str(desvio_padrao(numeros, soma/cont)))
