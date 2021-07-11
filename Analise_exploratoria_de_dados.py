@@ -105,7 +105,7 @@ with open('sum.txt', 'r') as inp:
         x = line.split()
         numbers = numbers + x
 
-
+# code
 numeros = parse(numbers)
 
 mediana = percentil(numeros, 50)
